@@ -1,4 +1,5 @@
 export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import { Pool } from "pg";
 
@@ -17,17 +18,18 @@ export async function GET() {
         price,
         availability,
         rating,
+        product_url,
         image_url
       FROM books
       ORDER BY id
-      LIMIT 100
+      LIMIT 100;
     `);
 
     return NextResponse.json(result.rows);
   } catch (error) {
-    console.error("Database error:", error);
+    console.error(error);
     return NextResponse.json(
-      { error: "Failed to fetch books" },
+      { error: "Database error" },
       { status: 500 }
     );
   }
